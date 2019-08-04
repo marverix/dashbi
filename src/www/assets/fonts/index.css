@@ -1,0 +1,24 @@
+/*
+ * Copyright (c) 2017, Carl Enlund
+ *
+ * Bellow used fonts are under SIL Open Font License, Version 1.1
+ *
+ * Please check out both LICENSE and repo at:
+ *   https://github.com/carlenlund/helmet
+ *   https://github.com/carlenlund/techna-sans
+ *
+ */
+
+@font-face {
+  font-family: 'Techna Sans';
+  src: url('./techna-sans-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helmet';
+  src: url('./helmet-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

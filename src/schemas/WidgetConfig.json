@@ -1,0 +1,39 @@
+{
+    "$id": "WidgetConfig.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+
+    "description": "Scheme of Widget Config",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "params": {
+            "type": "object",
+            "default": {}
+        },
+        "source": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "params": {
+                    "type": "object",
+                    "default": {}
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+      "name", "title"
+    ],
+    "additionalProperties": false
+}

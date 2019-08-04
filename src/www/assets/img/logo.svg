@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="500" height="500" version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <title>Dashbi logo</title>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Dashbi logo</dc:title>
+    <dc:date>4.08.2019 16:21</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Marek Sierociński</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(0 -622.52)">
+  <flowRoot fill="black" font-family="sans-serif" font-size="40px" letter-spacing="-13.97px" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><flowRegion><rect x="-763.68" y="253.52" width="278.8" height="305.07"/></flowRegion><flowPara/></flowRoot>
+  <rect x="125" y="897.52" width="225" height="175" fill="#3bb273"/>
+  <rect transform="rotate(90)" x="672.52" y="-450" width="50" height="400" fill="#4d9de0"/>
+  <rect x="125" y="747.52" width="175" height="125" fill="#3bb273"/>
+  <rect x="50" y="747.52" width="50" height="325" fill="#3bb273"/>
+  <rect transform="scale(-1)" x="-450" y="-872.52" width="125" height="125" fill="#e1bc29"/>
+  <rect transform="scale(-1)" x="-450" y="-1072.5" width="75" height="175" fill="#e1bc29"/>
+ </g>
+</svg>

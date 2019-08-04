@@ -1,0 +1,113 @@
+<template>
+  <div class="g-container">
+    <template v-if="current != null">
+
+      <div v-for="widget in current.widgets"
+           :key="widget.name"
+           :class="['g-item', getWidgetClass(widget)]">
+
+        <component :is="'widget-' + widget.name"></component>
+
+      </div>
+
+    </template>
+  </div>
+</template>
+
+<script>
+'use strict';
+
+import layouts from '@lib/layouts';
+
+export default {
+
+  data () {
+    return {
+      current: null
+    }
+  },
+
+  watch: {
+    '$route': {
+      handler: 'onRoute',
+      immediate: true
+    }
+  },
+
+  methods: {
+
+    /**
+     * On route change
+     * @param {Object} to
+     * @param {Object} from
+     * @see {@link https://router.vuejs.org/guide/essentials/dynamic-matching.html#reacting-to-params-changes}
+     */
+    onRoute (to, from) {
+      let layout = layouts.getByName(to.params.name);
+      if (layout != null) {
+        this.current = layout;
+      } else {
+        this.$router.replace('/error404');
+      }
+    },
+
+    /**
+     * Get widget class
+     * @param {Object} widget
+     * @returns {string}
+     */
+    getWidgetClass (widget) {
+      let classes = [];
+
+      // size
+      let width = widget.params.width || 1;
+      let height = widget.params.height || 1;
+      classes.push(`g-item-${width}x${height}`);
+
+      // style
+      if (widget.params.style) {
+        classes.push(`g-item-style-${widget.params.style}`);
+      }
+
+      return classes.join(' ');
+    }
+
+  }
+
+}
+</script>
+
+<style lang="less" scoped>
+@import '~@less/colors.less';
+
+a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: @blue;
+  text-align: center;
+  color: white;
+
+  &:hover {
+    background: @green;
+  }
+
+  * {
+    padding: 0.25rem 0.5rem;
+  }
+
+  i.fa {
+    font-size: 250%;
+    margin-top: 2rem;
+  }
+
+  span {
+    display: block;
+    font-size: 175%;
+  }
+
+  small {
+    display: block;
+  }
+}
+</style>

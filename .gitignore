@@ -1,0 +1,6 @@
+# Node stuff
+node_modules
+
+# Build
+/src/www/dist
+/src/www/intermediars

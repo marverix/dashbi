@@ -1,0 +1,78 @@
+'use strict';
+
+const fs = require('fs');
+
+const globalConfig = require('../../global-config');
+
+const Log = require('../lib/Log');
+const AbstractController = require('./AbstractController');
+const Widget = require('../classes/Widget');
+
+
+/**
+ * Widgets Controller
+ */
+class WidgetsController extends AbstractController {
+
+  /**
+   * Constructor
+   * @param {string} localSource Local source path
+   */
+  constructor (localSource) {
+    super(localSource);
+  }
+
+  /**
+   * Create registry entry
+   * @param {string} name Name
+   * @param {string} [localSource] Local source path
+   * @returns {Widget}
+   */
+  createRegistryEntry (name, localSource = this.localSource) {
+    return new Widget(name, localSource);
+  }
+
+  /**
+   *
+   * @param {Object} config Widget Config
+   */
+  extendConfig (config) {
+    let widget = this.registry.get(config.name);
+    return Object.deepAssign({}, { params: widget.defaults }, config);
+  }
+
+  /**
+   * Generate intermediar
+   * This function will generate `widgets.js` which will be used for Client App to import widgets as components
+   * @returns {Promise}
+   */
+  generateIntermediar () {
+    let that = this;
+
+    return new Promise(function (resolve, reject) {
+      Log.n('Generating widgets intermediar...');
+
+      let index = "'use strict';\n"
+                + "import Vue from 'vue';\n";
+
+      let i = 0;
+      that.registry.forEach(function (widget) {
+        index += `import w${i} from '${widget.path}';\n`
+               + `Vue.component('widget-${widget.name}', w${i});\n`;
+        i++;
+      });
+
+      fs.writeFile(globalConfig.path.intermediarsWidgetsFile, index, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+}
+
+// Export
+module.exports = WidgetsController;

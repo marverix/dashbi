@@ -1,0 +1,80 @@
+@import './colors.less';
+
+.g-item-loop(@x, @y) when (@x > 0) {
+  .g-item-loop((@x - 1), @y);
+  .g-item-loop-y(@x, @y);
+}
+
+.g-item-loop-y(@x, @y) when (@y > 0) {
+  .g-item-loop-y(@x, (@y - 1));
+
+  .g-item-@{x}x@{y} {
+    grid-column: span @x;
+    grid-row: span @y;
+  }
+}
+
+.g-container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  grid-gap: 0.75rem;
+  place-items: stretch;
+  place-content: stretch;
+
+  .g-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @grey;
+    text-align: center;
+    color: @dark-graphite;
+
+    &:link,
+    &:visited {
+      background: @blue;
+      color: white;
+
+      &:hover {
+        background: darken(@blue, 10%);
+      }
+    }
+
+    // styles
+    &-style {
+      &-light {
+        background: @fog;
+      }
+
+      &-green {
+        background: @green;
+        color: white;
+      }
+
+      &-blue {
+        background: @blue;
+        color: white;
+      }
+
+      &-purple {
+        background: @purple;
+        color: white;
+      }
+
+      &-yellow {
+        background: @yellow;
+      }
+
+      &-red {
+        background: @red;
+        color: white;
+      }
+    }
+
+  }
+
+  .g-item-loop(16, 9);
+}
