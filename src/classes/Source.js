@@ -17,14 +17,21 @@ class Source {
     this.dataProvider = dataProvider;
     this.params = params;
 
+    // Create Source ID
+    this.sid = md5(this.dataProvider.name + '-' + JSON.stringify(params));
+
     // Start worker
     this.worker = cp.fork(this.dataProvider.path);
     this.worker.send(this.params);
     this.worker.on('message', this.handleWorkerMessage.bind(this));
   }
 
-  handleWorkerMessage (msg) {
-    console.log(msg);
+  /**
+   * Handle worker message
+   * @param {*} state
+   */
+  handleWorkerMessage (state) {
+    this.dataProvider.databaseController.put(this.sid, state);
   }
 
 }

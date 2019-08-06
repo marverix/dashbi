@@ -3,20 +3,22 @@
 const path = require('path');
 
 const config = {
-  path: {},
+  path: {
+    root: path.resolve(__dirname)
+  },
 
-  webServer: {
-    port: 8000
+  port: {
+    webServer: 8800,
+    stompServer: 8801
   }
 };
-
-config.path.root = path.resolve(__dirname);
 
 config.path.nodeModules = path.join(config.path.root, 'node_modules');
 config.path.src = path.join(config.path.root, 'src');
 config.path.classes = path.join(config.path.src, 'classes');
 config.path.lib = path.join(config.path.src, 'lib');
 config.path.schemas = path.join(config.path.src, 'schemas');
+config.path.widgets = path.join(config.path.src, 'widgets');
 config.path.www = path.join(config.path.src, 'www');
 
 config.path.wwwAssets = path.join(config.path.www, 'assets');
@@ -28,5 +30,6 @@ config.path.wwwLib = path.join(config.path.www, 'lib');
 
 config.path.intermediarsLayoutsFile = path.join(config.path.wwwIntermediars, 'layouts.json');
 config.path.intermediarsWidgetsFile = path.join(config.path.wwwIntermediars, 'widgets.js');
+
 
 module.exports = config;

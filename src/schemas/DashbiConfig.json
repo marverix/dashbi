@@ -1,0 +1,22 @@
+{
+    "$id": "DashbiConfig.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+
+    "description": "Scheme of Dashbi Config",
+    "type": "object",
+    "properties": {
+        "localSource": {
+            "type": "string",
+            "default": "./src"
+        },
+        "databaseFile": {
+            "type": "string",
+            "default": "./dashbi.db"
+        },
+        "autoRegister": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "additionalProperties": false
+}

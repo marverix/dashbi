@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
 
@@ -43,13 +42,13 @@ class WebServer {
    * Start
    * @returns {Promise}
    */
-  start (port = globalConfig.webServer.port) {
+  start (port = globalConfig.port.webServer) {
     let that = this;
 
     Log.n(`Starting WebServer...`);
     return new Promise(function (resolve, reject) {
       that.server.listen(port, '0.0.0.0', function() {
-        Log.n(`Listening on port ${port}...`);
+        Log.n(`Serving WebServer on port ${port}...`);
         resolve();
       });
     });

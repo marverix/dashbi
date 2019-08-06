@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const fs = require('fs');
 
 const globalConfig = require('../../global-config');
@@ -19,7 +20,7 @@ class WidgetsController extends AbstractController {
    * @param {string} localSource Local source path
    */
   constructor (localSource) {
-    super(localSource);
+    super(path.join(localSource, 'widgets'));
   }
 
   /**
@@ -28,8 +29,19 @@ class WidgetsController extends AbstractController {
    * @param {string} [localSource] Local source path
    * @returns {Widget}
    */
-  createRegistryEntry (name, localSource = this.localSource) {
+  createRegistryEntry (name, localSource) {
+    if (!localSource) {
+      localSource = path.join(this.localSource, name);
+    }
+
     return new Widget(name, localSource);
+  }
+
+  /**
+   * Auto register widgets
+   */
+  autoRegister () {
+    super.autoRegister('widget');
   }
 
   /**
@@ -38,7 +50,7 @@ class WidgetsController extends AbstractController {
    */
   extendConfig (config) {
     let widget = this.registry.get(config.name);
-    return Object.deepAssign({}, { params: widget.defaults }, config);
+    return Object.assign({}, { params: widget.defaults }, config);
   }
 
   /**

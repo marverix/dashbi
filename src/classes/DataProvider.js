@@ -14,11 +14,14 @@ class DataProvider {
   /**
    * Constructor
    * @param {string} name Unique name
-   * @param {string} localSource Local source path
+   * @param {string} _path Path
+   * @param {DatabaseController} databaseController Database Controller
+   * @param
    */
-  constructor (name, localSource) {
+  constructor (name, _path, databaseController) {
     this.name = name;
-    this.path = path.join(localSource, 'data-providers', name);
+    this.path = _path;
+    this.databaseController = databaseController;
 
     // Validate structure
 

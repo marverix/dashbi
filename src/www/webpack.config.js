@@ -67,11 +67,11 @@ module.exports = {
                   require.resolve('@babel/preset-env'),
                   {
                     targets: [
-                      'chrome > 57',
-                      'firefox > 52',
-                      'edge > 16',
-                      'android > 67',
-                      'ios > 10.3'
+                      'chrome >= 57',
+                      'firefox >= 52',
+                      'edge >= 16',
+                      'android >= 67',
+                      'ios >= 10.3'
                     ]
                   }
                 ]

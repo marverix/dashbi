@@ -6,11 +6,26 @@ const ajv = new Ajv({
   useDefaults: true
 });
 
+const DashbiConfigSchema = require('../schemas/DashbiConfig.json');
+const dashbiConfigValidator = ajv.compile(DashbiConfigSchema);
+
 const LayoutConfigSchema = require('../schemas/LayoutConfig.json');
 const layoutConfigValidator = ajv.compile(LayoutConfigSchema);
 
 const WidgetConfigSchema = require('../schemas/WidgetConfig.json');
 const widgetConfigValidator = ajv.compile(WidgetConfigSchema);
+
+/**
+ * Validate Dashbi Config by JSON schema
+ * @param {Object} config Dashbi Config
+ */
+function validateDashbiConfig (config) {
+  let valid = dashbiConfigValidator(config);
+  if (!valid) {
+    console.error(dashbiConfigValidator.errors);
+    throw new Error('Invalid Dashbi Config')
+  }
+}
 
 /**
  * Validate Layout Config by JSON schema
@@ -38,6 +53,7 @@ function validateWidgetConfig (config) {
 
 
 module.exports = {
+  validateDashbiConfig,
   validateLayoutConfig,
   validateWidgetConfig
 };

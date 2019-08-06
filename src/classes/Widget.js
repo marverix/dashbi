@@ -12,11 +12,11 @@ class Widget {
   /**
    * Constructor
    * @param {string} name Unique name
-   * @param {string} localSource Local source path
+   * @param {string} _path Path
    */
-  constructor (name, localSource) {
+  constructor (name, _path) {
     this.name = name;
-    this.path = path.join(localSource, 'widgets', name);
+    this.path = _path;
 
     // Validate structure
 

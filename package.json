@@ -1,6 +1,6 @@
 {
   "name": "dashbi",
-  "version": "0.1.0-alpha1",
+  "version": "0.1.0-alpha2",
   "description": "Dashbi is light framework that lets you build own dashboards corresponding your needs",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "lightweight"
   ],
   "author": "Marek Sierociński <marek.sierocinski@marverix.com>",
-  "license": "ICS",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/marverix/dashbi/issues"
   },
@@ -48,7 +48,7 @@
     "normalize.css": "^8.0.1",
     "rimraf": "^2.6.3",
     "sass-loader": "^7.1.0",
-    "stomp-broker-js": "^1.2.0",
+    "stomp-broker-js": "git+https://github.com/marverix/StompBrokerJS.git",
     "url-loader": "^2.1.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.1",

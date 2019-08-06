@@ -1,5 +1,11 @@
 'use strict';
 
+const path = require('path');
+const fs = require('fs');
+
+const Log = require('./Log');
+
+
 /**
  * Abstract Controller
  */
@@ -29,7 +35,7 @@ class AbstractController {
    * @param {string} [localSource] Local source path
    * @returns {Object}
    */
-  register (name, localSource = this.localSource) {
+  register (name, localSource) {
     let entry = this.createRegistryEntry(name, localSource);
     this.registry.set(name, entry);
     return entry;
@@ -42,6 +48,26 @@ class AbstractController {
    */
   createRegistryEntry (name, localSource) {
     throw new Error('Please overwrite this method');
+  }
+
+  /**
+   * Auto register widgets found in node_modules
+   * @param {string} type
+   */
+  autoRegister (type) {
+    let nodeModules = path.resolve('./node_modules');
+    let modules = fs.readdirSync(nodeModules);
+
+    let prefix = `dashbi-${type}-`;
+    let newName;
+
+    for (let name of modules) {
+      if (name.startsWith(prefix)) {
+        newName = name.replace(prefix, '');
+        Log.n(`Auto registering ${type.replace('-', '')} '${newName}'`);
+        this.register(newName, path.join(nodeModules, name));
+      }
+    }
   }
 
 }
