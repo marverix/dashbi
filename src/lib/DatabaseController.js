@@ -31,13 +31,42 @@ class DatabaseController {
    * @param {*} state State
    */
   put (sid, state) {
-    this.datastore.insert({
-      sid,
-      state
-    }, function (err, newDoc) {
-      if (err) {
-        Log.err(err);
-      }
+    let that = this;
+    return new Promise(function (resolve, reject) {
+      that.datastore.insert({
+        sid,
+        state
+      }, function (err, newDoc) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(newDoc);
+        }
+      });
+    });
+  }
+
+  /**
+   * Fetch data from datastore
+   * @param {string} sid Source ID
+   */
+  fetch (sid) {
+    let that = this;
+    return new Promise(function (resolve, reject) {
+      that.datastore.find({ sid })
+      .projection({
+        state: 1,
+        createdAt: 1
+      })
+      .sort({ createdAt: -1 })
+      .limit(100)
+      .exec(function (err, docs) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(docs.reverse());
+        }
+      });
     });
   }
 

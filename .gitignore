@@ -1,5 +1,8 @@
+# IDE
+/.idea
+
 # Node stuff
-node_modules
+/node_modules
 
 # Build
 /src/www/dist

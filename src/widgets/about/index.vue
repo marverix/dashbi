@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { version } from '@root/package.json';
+import version from '@root/package.json';
 
 export default {
   data () {

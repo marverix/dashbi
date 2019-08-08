@@ -16,11 +16,13 @@ class DataProvidersController extends AbstractController {
    * @param {string} localSource Local source path
    * @param {LayoutsController} layoutsController Layouts Controller
    * @param {DatabaseController} databaseController Database Controller
+   * @param {StompServer} stompServer Stomp Server
    */
-  constructor (localSource, layoutsController, databaseController) {
+  constructor (localSource, layoutsController, databaseController, stompServer) {
     super(path.join(localSource, 'data-providers'));
     this.layoutsController = layoutsController;
     this.databaseController = databaseController;
+    this.stompServer = stompServer;
     this.running = [];
   }
 
@@ -35,7 +37,7 @@ class DataProvidersController extends AbstractController {
       localSource = path.join(this.localSource, name);
     }
 
-    return new DataProvider(name, localSource, this.databaseController);
+    return new DataProvider(name, localSource, this.databaseController, this.stompServer);
   }
 
   /**

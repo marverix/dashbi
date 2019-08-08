@@ -16,12 +16,14 @@ class DataProvider {
    * @param {string} name Unique name
    * @param {string} _path Path
    * @param {DatabaseController} databaseController Database Controller
+   * @param {StompServer} stompServer Stomp Server
    * @param
    */
-  constructor (name, _path, databaseController) {
+  constructor (name, _path, databaseController, stompServer) {
     this.name = name;
     this.path = _path;
     this.databaseController = databaseController;
+    this.stompServer = stompServer;
 
     // Validate structure
 

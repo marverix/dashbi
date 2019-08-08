@@ -1,12 +1,15 @@
 <template>
-  <div class="g-container">
+  <div class="fg">
     <template v-if="current != null">
 
       <div v-for="widget in current.widgets"
            :key="widget.name"
-           :class="['g-item', getWidgetClass(widget)]">
+           :class="['fg-item', getWidgetClass(widget)]">
 
-        <component :is="'widget-' + widget.name"></component>
+        <component :is="'widget-' + widget.name"
+                   :title="widget.title"
+                   :data="$store.state.sources[ widget.source ]"
+                   :params="widget.params"></component>
 
       </div>
 
@@ -45,9 +48,28 @@ export default {
     onRoute (to, from) {
       let layout = layouts.getByName(to.params.name);
       if (layout != null) {
-        this.current = layout;
+        this.changeCurrent(layout);
       } else {
         this.$router.replace('/error404');
+      }
+    },
+
+    /**
+     * Change current
+     * @param {Object} layout
+     */
+    changeCurrent (layout) {
+      this.initWidgetsSources(layout.widgets);
+      this.current = layout;
+    },
+
+    /**
+     * Init widgets sources
+     * @param {Object[]} widgets
+     */
+    initWidgetsSources (widgets) {
+      for (let widget of widgets) {
+        this.$store.dispatch('initSource', widget.source);
       }
     },
 
@@ -59,14 +81,17 @@ export default {
     getWidgetClass (widget) {
       let classes = [];
 
-      // size
+      // width
       let width = widget.params.width || 1;
+      classes.push(`fg-w-${width}`);
+
+      // height
       let height = widget.params.height || 1;
-      classes.push(`g-item-${width}x${height}`);
+      classes.push(`fg-h-${height}`);
 
       // style
       if (widget.params.style) {
-        classes.push(`g-item-style-${widget.params.style}`);
+        classes.push(`fg-style-${widget.params.style}`);
       }
 
       return classes.join(' ');

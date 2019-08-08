@@ -12,7 +12,10 @@ const globalConfig = require('../../global-config');
 module.exports = {
   mode: 'production',
 
-  entry: path.join(globalConfig.path.www, 'app.js'),
+  entry: [
+    '@babel/polyfill',
+    path.join(globalConfig.path.www, 'app.js')
+  ],
 
   output: {
     path: globalConfig.path.wwwDist
@@ -28,6 +31,7 @@ module.exports = {
   },
 
   resolve: {
+    modules: [ globalConfig.path.nodeModules ],
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@root': globalConfig.path.root,
@@ -38,7 +42,7 @@ module.exports = {
       '@img': path.join(globalConfig.path.wwwAssets, 'img'),
       '@intermediars': globalConfig.path.wwwIntermediars,
       '@less': path.join(globalConfig.path.wwwAssets, 'less'),
-      '@lib': globalConfig.path.wwwLib,
+      '@lib': globalConfig.path.wwwLib
     }
   },
 
@@ -58,6 +62,7 @@ module.exports = {
       // JS
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
@@ -67,12 +72,12 @@ module.exports = {
                   require.resolve('@babel/preset-env'),
                   {
                     targets: [
-                      'chrome >= 57',
-                      'firefox >= 52',
-                      'edge >= 16',
-                      'android >= 67',
-                      'ios >= 10.3'
-                    ]
+                      'chrome >= 34',
+                      'firefox >= 37',
+                      'edge >= 12'
+                    ],
+                    useBuiltIns: 'usage',
+                    corejs: 2
                   }
                 ]
               ]

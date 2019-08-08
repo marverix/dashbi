@@ -1,8 +1,8 @@
 <template>
-  <nav class="g-container">
+  <nav class="fg">
     <router-link v-for="layout in layouts"
                  :key="layout.name"
-                 class="g-item g-item-4x2"
+                 class="fg-item fg-w-4 fg-h-2"
                  :to="'/layout/' + layout.name">
 
       <icon :name="layout.icon == null ? 'th' : layout.icon" />
@@ -28,11 +28,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.g-item {
-  * {
-    padding: 0.25rem 0.5rem;
-  }
-
+a[class*='fg-'] {
   i.fa {
     font-size: 250%;
     margin-top: 2rem;

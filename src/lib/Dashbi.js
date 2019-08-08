@@ -51,14 +51,16 @@ class Dashbi {
     // Layouts Controller
     this.layoutsController = new LayoutsController(this.widgetsController);
 
-    // Data Providers Controller
-    this.dataProvidersController = new DataProvidersController(this.localSource, this.layoutsController, this.databaseController);
-
-    // WebServer
-    this.webServer = new WebServer(this.layoutsController);
-
     // StompServer
     this.stompServer = new StompServer();
+
+    // Data Providers Controller
+    this.dataProvidersController = new DataProvidersController(
+      this.localSource, this.layoutsController, this.databaseController, this.stompServer
+    );
+
+    // WebServer
+    this.webServer = new WebServer(this.layoutsController, this.databaseController);
 
     // Init embeded
     this.widgetsController.register('about', path.join(globalConfig.path.widgets, 'about'));

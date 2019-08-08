@@ -1,6 +1,7 @@
 'use strict';
 
 const schemaValidator = require('../lib/SchemaValidator');
+const { getSourceId } = require('../lib/Utils');
 
 
 /**
@@ -56,12 +57,23 @@ class Layout {
    * To JSON
    */
   toJson () {
+    let widgets = [];
+    let tmpConfig;
+
+    for (let widgetConfig of this.widgets) {
+      tmpConfig = Object.assign({}, widgetConfig);
+      if (tmpConfig.source) {
+        tmpConfig.source = getSourceId(tmpConfig.source.name, tmpConfig.source.params);
+      }
+      widgets.push(tmpConfig);
+    }
+
     return {
       name: this.name,
       title: this.title,
       description: this.description || null,
       icon: this.icon || null,
-      widgets: this.widgets
+      widgets
     };
   }
 

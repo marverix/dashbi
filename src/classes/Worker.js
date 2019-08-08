@@ -41,6 +41,7 @@ class Worker {
 
     if (this.sendingState) {
       this.sendingState.ref = setInterval(this.sendState.bind(this), this.sendingState.interval);
+      setTimeout(this.sendState.bind(this), 5 * Date.SECOND);
     }
   }
 

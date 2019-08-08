@@ -50,7 +50,7 @@ class WidgetsController extends AbstractController {
    */
   extendConfig (config) {
     let widget = this.registry.get(config.name);
-    return Object.assign({}, { params: widget.defaults }, config);
+    return Object.deepAssign({}, { params: widget.defaults }, config);
   }
 
   /**

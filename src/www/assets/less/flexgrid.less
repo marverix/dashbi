@@ -1,34 +1,11 @@
+@import '~flexgrid.less';
 @import './colors.less';
 
-.g-item-loop(@x, @y) when (@x > 0) {
-  .g-item-loop((@x - 1), @y);
-  .g-item-loop-y(@x, @y);
-}
+.flexgrid(16, 9, 0.5em);
 
-.g-item-loop-y(@x, @y) when (@y > 0) {
-  .g-item-loop-y(@x, (@y - 1));
-
-  .g-item-@{x}x@{y} {
-    grid-column: span @x;
-    grid-row: span @y;
-  }
-}
-
-.g-container {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: repeat(16, 1fr);
-  grid-template-rows: repeat(9, 1fr);
-  grid-gap: 0.75rem;
-  place-items: stretch;
-  place-content: stretch;
-
-  .g-item {
+.fg {
+  .fg-item {
     position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
     background: @grey;
     text-align: center;
     color: @dark-graphite;
@@ -73,8 +50,5 @@
         color: white;
       }
     }
-
   }
-
-  .g-item-loop(16, 9);
 }

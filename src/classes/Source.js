@@ -1,6 +1,7 @@
 'use strict';
 
 const cp = require('child_process');
+const { getSourceId } = require('../lib/Utils');
 
 
 /**
@@ -18,7 +19,7 @@ class Source {
     this.params = params;
 
     // Create Source ID
-    this.sid = md5(this.dataProvider.name + '-' + JSON.stringify(params));
+    this.sid = getSourceId(this.dataProvider.name, params);
 
     // Start worker
     this.worker = cp.fork(this.dataProvider.path);
@@ -31,7 +32,10 @@ class Source {
    * @param {*} state
    */
   handleWorkerMessage (state) {
-    this.dataProvider.databaseController.put(this.sid, state);
+    let that = this;
+    this.dataProvider.databaseController.put(this.sid, state).then(function (record) {
+      that.dataProvider.stompServer.updateSource(record.sid, record);
+    });
   }
 
 }
