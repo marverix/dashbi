@@ -31,7 +31,7 @@ module.exports = {
   },
 
   resolve: {
-    modules: [ globalConfig.path.nodeModules ],
+    modules: [ globalConfig.path.nodeModules, 'node_modules' ],
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@root': globalConfig.path.root,
