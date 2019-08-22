@@ -14,7 +14,23 @@ class Worker {
     this.config = config;
     this.checks = [];
     this.state = {};
-    this.sendingState = null;
+
+    this.sendingState = {
+      frequently: {
+        enabled: false,
+        interval: null,
+        ref: null
+      },
+
+      onChange: {
+        enabled: false,
+        interval: 100,
+        ref: null,
+        last: null
+      }
+    };
+
+    this._boundSendState = this.sendState.bind(this);
 
     process.on('message', this.handleMessage.bind(this));
   }
@@ -39,9 +55,9 @@ class Worker {
       check.handler.call(this);
     }
 
-    if (this.sendingState) {
-      this.sendingState.ref = setInterval(this.sendState.bind(this), this.sendingState.interval);
-      setTimeout(this.sendState.bind(this), 5 * Date.SECOND);
+    if (this.sendingState.frequently.enabled) {
+      this.sendingState.frequently.ref = setInterval(this._boundSendState, this.sendingState.frequently.interval);
+      setTimeout(this._boundSendState, 5 * Date.SECOND);
     }
   }
 
@@ -56,9 +72,9 @@ class Worker {
       }
     }
 
-    if (this.sendingState && this.sendingState.ref) {
-      clearInterval(this.sendingState.ref);
-      this.sendingState.ref = null;
+    if (this.sendingState.frequently.ref) {
+      clearInterval(this.sendingState.frequently.ref);
+      this.sendingState.frequently.ref = null;
     }
   }
 
@@ -97,6 +113,26 @@ class Worker {
    */
   storeState (key, value) {
     this.state[key] = value;
+    this.afterStoreStare();
+  }
+
+  /**
+   * After store stare
+   */
+  afterStoreStare () {
+    if (this.sendingState.onChange.enabled) {
+      let jsonState = JSON.stringify(this.state);
+
+      if (this.sendingState.onChange.last !== jsonState) {
+        this.sendingState.onChange.last = jsonState;
+
+        if (this.sendingState.onChange.ref) {
+          clearTimeout(this.sendingState.onChange.ref);
+        }
+
+        this.sendingState.onChange.ref = setTimeout(this._boundSendState, this.sendingState.onChange.interval);
+      }
+    }
   }
 
   /**
@@ -104,10 +140,16 @@ class Worker {
    * @param {number} interval
    */
   sendStateEvery (interval) {
-    this.sendingState = {
-      interval,
-      ref: null
-    };
+    this.sendingState.frequently.enabled = true;
+    this.sendingState.frequently.interval = interval;
+  }
+
+  /**
+   * Send on state change
+   * @param {number} interval
+   */
+  sendOnChange () {
+    this.sendingState.onChange.enabled = true;
   }
 
 }
