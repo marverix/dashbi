@@ -1,8 +1,14 @@
-.editorconfig
-.eslintrc
+/.idea
+/.editorconfig
+/.eslintrc
 
+# Node stuff
+/node_modules
 *.tgz
 
-/test
+# Build
 /src/www/dist
 /src/www/intermediars
+
+# Tests
+/test
