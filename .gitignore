@@ -3,6 +3,7 @@
 
 # Node stuff
 /node_modules
+*.tgz
 
 # Build
 /src/www/dist

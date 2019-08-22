@@ -1,0 +1,8 @@
+.editorconfig
+.eslintrc
+
+*.tgz
+
+/test
+/src/www/dist
+/src/www/intermediars
