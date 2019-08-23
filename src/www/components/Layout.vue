@@ -135,4 +135,13 @@ a {
     display: block;
   }
 }
+
+.fg {
+  .fg-item {
+    & > * {
+      width: auto;
+      height: 100%;
+    }
+  }
+}
 </style>
