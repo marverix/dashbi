@@ -23,7 +23,11 @@ class NeDBDriver extends AbstractDriver {
   constructor (settings) {
     super(settings);
     this.config = Object.deepAssign({}, DEFAULT_CONFIG, this.settings);
+
     this.datastore = new Datastore(this.config);
+
+    this.datastore.persistence.setAutocompactionInterval(30 * Date.MINUTE);
+    this.datastore.ensureIndex({ fieldName: 'sid' });
   }
 
   /**
