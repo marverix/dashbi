@@ -9,9 +9,20 @@
             "type": "string",
             "default": "./src"
         },
-        "databaseFile": {
-            "type": "string",
-            "default": "./dashbi.db"
+        "database": {
+            "type": "object",
+            "default": {},
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "default": "nedb"
+                },
+                "settings": {
+                    "type": "object",
+                    "default": {}
+                }
+            },
+            "additionalProperties": false
         },
         "autoRegister": {
             "type": "boolean",

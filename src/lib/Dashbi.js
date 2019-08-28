@@ -32,9 +32,6 @@ class Dashbi {
 
     Log.info(`Initializing new Dashbi instance`);
 
-    // Database File path
-    this.databaseFile = config.databaseFile ? path.resolve(config.databaseFile) : null;
-
     // Local Source path
     this.localSource = config.localSource ? path.resolve(config.localSource) : null;
 
@@ -43,7 +40,7 @@ class Dashbi {
     }
 
     // DatabaseController
-    this.databaseController = new DatabaseController(this.databaseFile);
+    this.databaseController = new DatabaseController(this.localSource);
 
     // Widgets Controller
     this.widgetsController = new WidgetsController(this.localSource);
@@ -63,6 +60,11 @@ class Dashbi {
     this.webServer = new WebServer(this.layoutsController, this.databaseController);
 
     // Init embeded
+
+    // -- nedb
+    this.databaseController.register('nedb', path.join(globalConfig.path.dbDrivers, 'nedb'));
+
+    // -- About
     this.widgetsController.register('about', path.join(globalConfig.path.widgets, 'about'));
     let about = this.layoutsController.createNew({
       name: 'about',
@@ -77,9 +79,13 @@ class Dashbi {
 
     // Auto register
     if (config.autoRegister) {
+      this.databaseController.autoRegister();
       this.widgetsController.autoRegister();
       this.dataProvidersController.autoRegister();
     }
+
+    // Init Database
+    this.databaseController.init(config.database);
   }
 
   /**

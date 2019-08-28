@@ -1,28 +1,53 @@
 'use strict';
 
-const Datastore = require('nedb');
+const path = require('path');
 
-const globalConfig = require('../../global-config');
-
-const Log = require('../lib/Log');
+const AbstractController = require('./AbstractController');
 
 
 /**
  * Database Controller
  */
-class DatabaseController {
+class DatabaseController extends AbstractController {
 
   /**
    * Constructor
-   * @param {string} filename Database filename
+   * @param {string} localSource Local source path
+   * @param {Object} config Config
    */
-  constructor (filename) {
-    this.datastore = new Datastore({
-      filename,
-      timestampData: true,
-      autoload: true,
-      corruptAlertThreshold: 0
-    });
+  constructor (localSource, config) {
+    super(path.join(localSource, 'db-drivers'));
+    this.driver = null;
+  }
+
+  /**
+   * Constructor
+   * @param {Object} config Config
+   */
+  init (config) {
+    let Driver = this.registry.get(config.driver)
+    this.driver = new Driver(config.settings);
+  }
+
+  /**
+   * Create registry entry
+   * @param {string} name Name
+   * @param {string} [localSource] Local source path
+   * @returns {Widget}
+   */
+  createRegistryEntry (name, localSource) {
+    if (!localSource) {
+      localSource = path.join(this.localSource, name);
+    }
+
+    return require(localSource);
+  }
+
+  /**
+   * Auto register db-drivers
+   */
+  autoRegister () {
+    super.autoRegister('db-driver');
   }
 
   /**
@@ -31,18 +56,7 @@ class DatabaseController {
    * @param {*} state State
    */
   put (sid, state) {
-    return new Promise( (resolve, reject) => {
-      this.datastore.insert({
-        sid,
-        state
-      }, function (err, newDoc) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(newDoc);
-        }
-      });
-    });
+    return this.driver.put(sid, state);
   }
 
   /**
@@ -50,22 +64,7 @@ class DatabaseController {
    * @param {string} sid Source ID
    */
   fetch (sid) {
-    return new Promise( (resolve, reject) => {
-      this.datastore.find({ sid })
-      .projection({
-        state: 1,
-        createdAt: 1
-      })
-      .sort({ createdAt: -1 })
-      .limit(100)
-      .exec(function (err, docs) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(docs.reverse());
-        }
-      });
-    });
+    return this.driver.fetch(sid);
   }
 
 }
