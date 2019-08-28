@@ -32,9 +32,8 @@ class Source {
    * @param {*} state
    */
   handleWorkerMessage (state) {
-    let that = this;
-    this.dataProvider.databaseController.put(this.sid, state).then(function (record) {
-      that.dataProvider.stompServer.updateSource(record.sid, record);
+    this.dataProvider.databaseController.put(this.sid, state).then( (record) => {
+      this.dataProvider.stompServer.updateSource(record.sid, record);
     });
   }
 

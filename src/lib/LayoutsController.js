@@ -78,13 +78,11 @@ class LayoutsController {
    * @returns {Promise}
    */
   generateIntermediar () {
-    let that = this;
-
-    return new Promise(function (resolve, reject) {
+    return new Promise( (resolve, reject) => {
       Log.n('Generating layouts intermediar...');
 
       let layoutsObject = [];
-      that.list.forEach(function (layout) {
+      this.list.forEach(function (layout) {
         layoutsObject.push( layout.toJson() );
       });
 

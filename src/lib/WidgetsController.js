@@ -59,16 +59,14 @@ class WidgetsController extends AbstractController {
    * @returns {Promise}
    */
   generateIntermediar () {
-    let that = this;
-
-    return new Promise(function (resolve, reject) {
+    return new Promise( (resolve, reject) => {
       Log.n('Generating widgets intermediar...');
 
       let index = "'use strict';\n"
                 + "import Vue from 'vue';\n";
 
       let i = 0;
-      that.registry.forEach(function (widget) {
+      this.registry.forEach(function (widget) {
         index += `import w${i} from '${widget.path}';\n`
                + `Vue.component('widget-${widget.name}', w${i});\n`;
         i++;

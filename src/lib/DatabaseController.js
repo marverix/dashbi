@@ -31,9 +31,8 @@ class DatabaseController {
    * @param {*} state State
    */
   put (sid, state) {
-    let that = this;
-    return new Promise(function (resolve, reject) {
-      that.datastore.insert({
+    return new Promise( (resolve, reject) => {
+      this.datastore.insert({
         sid,
         state
       }, function (err, newDoc) {
@@ -51,9 +50,8 @@ class DatabaseController {
    * @param {string} sid Source ID
    */
   fetch (sid) {
-    let that = this;
-    return new Promise(function (resolve, reject) {
-      that.datastore.find({ sid })
+    return new Promise( (resolve, reject) => {
+      this.datastore.find({ sid })
       .projection({
         state: 1,
         createdAt: 1

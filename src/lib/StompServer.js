@@ -28,11 +28,9 @@ class StompServer {
    * @returns {Promise}
    */
   start (port = globalConfig.port.stompServer) {
-    let that = this;
-
     Log.n(`Starting StompServer...`);
-    return new Promise(function (resolve, reject) {
-      that.server.listen(port, function() {
+    return new Promise( (resolve, reject) => {
+      this.server.listen(port, function() {
         Log.n(`Serving StompServer on port ${port}...`);
         resolve();
       });

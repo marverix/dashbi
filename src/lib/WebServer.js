@@ -48,11 +48,9 @@ class WebServer {
    * @returns {Promise}
    */
   start(port = globalConfig.port.webServer) {
-    let that = this;
-
     Log.n(`Starting WebServer...`);
-    return new Promise(function (resolve, reject) {
-      that.server.listen(port, '0.0.0.0', function () {
+    return new Promise( (resolve, reject) => {
+      this.server.listen(port, '0.0.0.0', function () {
         Log.n(`Serving WebServer on port ${port}...`);
         resolve();
       });

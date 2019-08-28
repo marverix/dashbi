@@ -52,11 +52,10 @@ class DataProvidersController extends AbstractController {
    */
   startWorkers () {
     let sources = this.layoutsController.getSources();
-    let that = this;
-    sources.forEach(function(source) {
-      let dataProvider = that.registry.get(source.name);
+    sources.forEach( (source) => {
+      let dataProvider = this.registry.get(source.name);
       let sourceInstance = dataProvider.createSource(source.params);
-      that.running.push(sourceInstance);
+      this.running.push(sourceInstance);
     });
   }
 

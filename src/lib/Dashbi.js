@@ -127,11 +127,10 @@ class Dashbi {
   start () {
     Log.info(`Starting!`);
 
-    let that = this;
-    Build(this).then(function() {
-      that.dataProvidersController.startWorkers();
-      that.webServer.start();
-      that.stompServer.start();
+    Build(this).then( () => {
+      this.dataProvidersController.startWorkers();
+      this.webServer.start();
+      this.stompServer.start();
     });
   }
 
