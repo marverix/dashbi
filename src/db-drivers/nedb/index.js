@@ -2,8 +2,6 @@
 
 const Datastore = require('nedb');
 
-const AbstractDriver = require('../AbstractDriver');
-
 const DEFAULT_CONFIG = {
   timestampData: true,
   autoload: true,
@@ -14,15 +12,14 @@ const DEFAULT_CONFIG = {
 /**
  * NeDB Driver
  */
-class NeDBDriver extends AbstractDriver {
+class NeDBDriver {
 
   /**
    * Constructor
    * @param {Object} settings Settings
    */
   constructor (settings) {
-    super(settings);
-    this.config = Object.deepAssign({}, DEFAULT_CONFIG, this.settings);
+    this.config = Object.deepAssign({}, DEFAULT_CONFIG, settings);
 
     this.datastore = new Datastore(this.config);
 
