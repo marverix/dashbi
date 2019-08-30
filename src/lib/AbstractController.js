@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const Log = require('./Log');
+const globalConfig = require('../../global-config');
 
 
 /**
@@ -55,8 +56,7 @@ class AbstractController {
    * @param {string} type
    */
   autoRegister (type) {
-    let nodeModules = path.resolve('./node_modules');
-    let modules = fs.readdirSync(nodeModules);
+    let modules = fs.readdirSync(globalConfig.path.nodeModules);
 
     let prefix = `dashbi-${type}-`;
     let newName;
@@ -65,7 +65,7 @@ class AbstractController {
       if (name.startsWith(prefix)) {
         newName = name.replace(prefix, '');
         Log.n(`Auto registering ${type.replace('-', '')} '${newName}'`);
-        this.register(newName, path.join(nodeModules, name));
+        this.register(newName, path.join(globalConfig.path.nodeModules, name));
       }
     }
   }

@@ -13,7 +13,9 @@ const config = {
   }
 };
 
-config.path.nodeModules = path.join(config.path.root, 'node_modules');
+config.path.dashbiModules = path.join(config.path.root, 'node_modules');
+config.path.nodeModules = path.resolve('./node_modules');
+
 config.path.src = path.join(config.path.root, 'src');
 config.path.classes = path.join(config.path.src, 'classes');
 config.path.dbDrivers = path.join(config.path.src, 'db-drivers');
