@@ -81,7 +81,7 @@ class NeDBDriver {
       if (!err && docs.length) {
         let sids = docs.map((doc) => doc.sid);
         this.datastore.remove({
-          $where: function () { return sids.includes(this.sid); }
+          sid: { $in: sids }
         }, { multi: true }, () => {
           this.datastore.persistence.compactDatafile();
         });
