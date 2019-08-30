@@ -47,7 +47,7 @@ module.exports = {
   },
 
   resolveLoader: {
-    modules: [ globalConfig.path.nodeModules ]
+    modules: [ globalConfig.path.nodeModules, 'node_modules' ]
   },
 
   module: {
