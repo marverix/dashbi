@@ -10,8 +10,17 @@ const URL = `${location.origin.replace(/\d+$/, port.stompServer ).replace(/^http
  */
 const client = Stomp.client(URL);
 client.reconnect_delay = 5 * Date.SECOND;
+
+let wasConnected = false;
 const promise = new Promise(function (resolve, reject) {
-  client.connect('anonymous', 'anonymous', resolve, reject);
+  client.connect('anonymous', 'anonymous', () => {
+    if (wasConnected) {
+      location.reload();
+    } else {
+      wasConnected = true;
+      resolve();
+    }
+  }, reject);
 });
 
 /**
