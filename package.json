@@ -1,6 +1,6 @@
 {
   "name": "dashbi",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Dashbi is light framework that lets you build own dashboards corresponding your needs",
   "main": "index.js",
   "scripts": {
