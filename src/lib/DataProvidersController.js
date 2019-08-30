@@ -56,6 +56,7 @@ class DataProvidersController extends AbstractController {
       let dataProvider = this.registry.get(source.name);
       let sourceInstance = dataProvider.createSource(source.params);
       this.running.push(sourceInstance);
+      this.databaseController.watchFor(sourceInstance.sid);
     });
   }
 

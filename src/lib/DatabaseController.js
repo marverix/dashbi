@@ -13,11 +13,11 @@ class DatabaseController extends AbstractController {
   /**
    * Constructor
    * @param {string} localSource Local source path
-   * @param {Object} config Config
    */
-  constructor (localSource, config) {
+  constructor (localSource) {
     super(path.join(localSource, 'db-drivers'));
     this.driver = null;
+    this.watchingFor = new Set();
   }
 
   /**
@@ -65,6 +65,20 @@ class DatabaseController extends AbstractController {
    */
   fetch (sid) {
     return this.driver.fetch(sid);
+  }
+
+  /**
+   * Warch for given Source
+   * @param {string} sid Source ID
+   */
+  watchFor (sid) {
+    if (!this.watchingFor.has(sid)) {
+      this.watchingFor.add(sid);
+
+      if (typeof this.driver.cleanUp === 'function') {
+        setInterval(this.driver.cleanUp.bind(this.driver, sid), 10 * Date.SECOND);
+      }
+    }
   }
 
 }

@@ -8,6 +8,8 @@ const DEFAULT_CONFIG = {
   corruptAlertThreshold: 0
 };
 
+const LIMIT_PER_SID = 10000;
+
 
 /**
  * NeDB Driver
@@ -20,10 +22,7 @@ class NeDBDriver {
    */
   constructor (settings) {
     this.config = Object.deepAssign({}, DEFAULT_CONFIG, settings);
-
     this.datastore = new Datastore(this.config);
-
-    this.datastore.persistence.setAutocompactionInterval(30 * Date.MINUTE);
     this.datastore.ensureIndex({ fieldName: 'sid' });
   }
 
@@ -37,7 +36,7 @@ class NeDBDriver {
       this.datastore.insert({
         sid,
         state
-      }, function (err, newDoc) {
+      }, (err, newDoc) => {
         if (err) {
           reject(err);
         } else {
@@ -60,13 +59,33 @@ class NeDBDriver {
       })
       .sort({ createdAt: -1 })
       .limit(100)
-      .exec(function (err, docs) {
+      .exec( (err, docs) => {
         if (err) {
           reject(err);
         } else {
           resolve(docs.reverse());
         }
       });
+    });
+  }
+
+  /**
+   *  Clean up given Source
+   * @param {string} sid Source ID
+   */
+  cleanUp (sid) {
+    this.datastore.find({ sid })
+    .sort({ createdAt: -1 })
+    .skip(LIMIT_PER_SID)
+    .exec( (err, docs) => {
+      if (!err && docs.length) {
+        let sids = docs.map((doc) => doc.sid);
+        this.datastore.remove({
+          $where: function () { return sids.includes(this.sid); }
+        }, { multi: true }, () => {
+          this.datastore.persistence.compactDatafile();
+        });
+      }
     });
   }
 
