@@ -13,18 +13,34 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    meta: {
+      title: 'Dashbi'
+    }
   },
   {
     path: '/layout/:name',
-    component: Layout
+    component: Layout,
+    meta: {
+      title: 'Layout'
+    }
   },
   {
     path: '*',
-    component: Error404
+    component: Error404,
+    meta: {
+      title: 'Error 404'
+    }
   }
 ];
 
-export default new Router({
+const router = new Router({
   routes
 });
+
+router.beforeEach( (to, from, next) => {
+  document.title = to.meta.title;
+  next();
+});
+
+export default router;

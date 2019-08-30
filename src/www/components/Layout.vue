@@ -61,6 +61,7 @@ export default {
     changeCurrent (layout) {
       this.initWidgetsSources(layout.widgets);
       this.current = layout;
+      document.title = layout.title;
     },
 
     /**
