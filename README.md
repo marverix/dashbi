@@ -27,9 +27,15 @@ that supports the [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web
 but it seems that a lot of TV screens with embeded web browsers don't support it.
 This is why project aims to work with older browsers like:
 
-* Firefox 37+
-* Chrome 34+
+* Firefox 28+
+* Chrome 21+
+* IE 11
 * Edge 12+
+* Safari 6.1+
+* Opera 12.1+
+* iOS Safari 7+
+* Android Browser 4.4+
+* Samsung Browser 4+
 
 Tested with following TV web browsers:
 
