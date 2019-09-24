@@ -47,7 +47,8 @@ module.exports = {
       '@intermediars': globalConfig.path.wwwIntermediars,
       '@less': path.join(globalConfig.path.wwwAssets, 'less'),
       '@lib': globalConfig.path.wwwLib
-    }
+    },
+    symlinks: false
   },
 
   resolveLoader: {
@@ -60,6 +61,12 @@ module.exports = {
 
   module: {
     rules: [
+
+      // HTML
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
 
       // Vue
       {
@@ -79,13 +86,20 @@ module.exports = {
                 [
                   require.resolve('@babel/preset-env'),
                   {
-                    targets: [
-                      'chrome >= 34',
-                      'firefox >= 37',
-                      'edge >= 12'
-                    ],
+                    targets: {
+                      'chrome': '21',
+                      'firefox': '28',
+                      'ie': '11',
+                      'edge': '12',
+                      'safari': '6.1',
+                      'opera': '12.1',
+                      'ios': '7',
+                      'samsung':'4',
+                      'android': '4.4'
+                    },
                     useBuiltIns: 'usage',
-                    corejs: 2
+                    corejs: 2,
+                    modules: 'auto'
                   }
                 ]
               ]
