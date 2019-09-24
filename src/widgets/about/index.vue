@@ -27,7 +27,7 @@ export default {
     year () {
       let ret = 2019;
       let y = new Date().getFullYear();
-      if (y == ret) {
+      if (y !== ret) {
         ret += ' - ' + y;
       }
       return ret;
