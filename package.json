@@ -1,6 +1,6 @@
 {
   "name": "dashbi",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Dashbi is light framework that lets you build own dashboards corresponding your needs",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
   "dependencies": {
     "@babel/core": "^7.4.4",
     "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-env": "^7.6.0",
     "@stomp/stompjs": "^4.0.8",
     "ajv": "^6.10.2",
     "axios": "^0.19.0",
@@ -45,6 +45,7 @@
     "flexgrid.less": "^0.1.0",
     "font-awesome": "^4.7.0",
     "helmet": "^3.20.0",
+    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
