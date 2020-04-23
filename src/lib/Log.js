@@ -8,7 +8,7 @@ const chalk = require('chalk');
  * @param {string} color Color that is valid method name of `chalk`
  * @param {*} msg Message to log
  */
-function clog(color, msg) {
+function clog (color, msg) {
   console.log(chalk[color](msg));
 }
 

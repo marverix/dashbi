@@ -20,7 +20,7 @@
 <script>
 'use strict';
 
-import layouts from '@lib/layouts';
+import layouts from 'Lib/layouts';
 
 export default {
 
@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@less/colors.less';
+@import '~Stylesheets/colors.less';
 
 a {
   display: block;

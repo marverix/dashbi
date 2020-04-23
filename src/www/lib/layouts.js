@@ -1,6 +1,6 @@
 'use strict';
 
-import layouts from '@intermediars/layouts.json';
+import layouts from 'Intermediars/layouts.json';
 
 
 /**
@@ -15,7 +15,7 @@ function getAll () {
  * Get layout with given name
  * @returns {Object|null} null if not found, otherwise Layout
  */
-function getByName(name) {
+function getByName (name) {
   let idx = layouts.lookFor({ name });
   return idx > -1 ? layouts[idx] : null;
 }

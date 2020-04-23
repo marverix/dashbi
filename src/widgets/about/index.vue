@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@img/logo.svg" alt="Dashbi logo" id="logo">
+    <img src="Img/logo.svg" alt="Dashbi logo" id="logo">
 
     <h3>Dashbi v{{ version }}</h3>
     <p>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { version } from '@root/package.json';
+import { version } from 'Root/package.json';
 
 export default {
   data () {
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@less/colors.less';
+@import '~Stylesheets/colors.less';
 
 #logo {
   width: 200px;

@@ -1,5 +1,6 @@
 import 'promise/polyfill';
-import 'finka';
+import finka from '@bitbar/finka';
+finka();
 
 import Vue from 'vue';
 import App from './App';
@@ -10,18 +11,18 @@ import store from './lib/store';
 // Global components
 
 // <icon ...></icon>
-import Icon from '@components/Icon';
+import Icon from 'Components/Icon';
 Vue.component('icon', Icon);
 
 // <widget-{{name}}></widget-{{name}}>
-import '@intermediars/widgets';
+import 'Intermediars/widgets';
 
 // Styles
 import 'normalize.css';
-import '@fonts/index.css';
+import 'Fonts/index.css';
 import 'font-awesome/less/font-awesome.less';
-import '@less/index.less';
-import '@less/flexgrid.less';
+import 'Stylesheets/index.less';
+import 'Stylesheets/flexgrid.less';
 
 Vue.config.productionTip = false;
 

@@ -17,7 +17,7 @@ class WebServer {
    * @param {LayoutsController} layoutsController
    * @param {DatabaseController} databaseController
    */
-  constructor(layoutsController, databaseController) {
+  constructor (layoutsController, databaseController) {
     this.layoutsController = layoutsController;
     this.databaseController = databaseController;
 
@@ -47,11 +47,11 @@ class WebServer {
    * Start
    * @returns {Promise}
    */
-  start(port = globalConfig.port.webServer) {
+  start (port = globalConfig.port.webServer) {
     Log.n(`Starting WebServer...`);
-    return new Promise( (resolve, reject) => {
-      this.server.listen(port, '0.0.0.0', function () {
-        Log.n(`Serving WebServer on port ${port}...`);
+    return new Promise( (resolve) => {
+      this.server.listen(port, '0.0.0.0', () => {
+        Log.n(`Serving WebServer http://localhost:${port} ...`);
         resolve();
       });
     });
@@ -64,7 +64,7 @@ class WebServer {
    * @param {Object} res
    * @param {Function} next
    */
-  serverSupportsInternalErrors(err, req, res, next) {
+  serverSupportsInternalErrors (err, req, res, next) { // eslint-disable-line no-unused-vars
     res.sendStatus(err.statusCode);
   }
 
@@ -73,7 +73,7 @@ class WebServer {
    * @param {Object} req
    * @param {Object} res
    */
-  serverDefaultResponse(req, res) {
+  serverDefaultResponse (req, res) {
     res.sendStatus(404);
   }
 
@@ -82,17 +82,17 @@ class WebServer {
    * @param {Object} req
    * @param {Object} res
    */
-  getSource(req, res) {
+  getSource (req, res) {
     if (!this.validateQuery(req.query)) {
       res.sendStatus(400);
       return;
     }
 
     this.databaseController.fetch(req.params.source)
-    .then(function (data) {
+    .then((data) => {
       res.send(data);
     })
-    .catch(function (err) {
+    .catch(() => {
       res.sendStatus(400)
     });
   }
@@ -103,7 +103,7 @@ class WebServer {
    * @param {Object} query Express Request Query Object
    * @return {boolean} Verdict
    */
-  validateQuery(query) {
+  validateQuery (query) {
     if (query.limit == null) {
       query.limit = 1;
     }

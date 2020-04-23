@@ -10,7 +10,7 @@ const globalConfig = require('../../global-config');
 
 // https://webpack.js.org/configuration/
 module.exports = {
-  mode: 'production',
+  mode: 'development',
 
   entry: [
     '@babel/polyfill',
@@ -38,15 +38,14 @@ module.exports = {
     ],
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@root': globalConfig.path.root,
-      '@': globalConfig.path.www,
-      '@assets': globalConfig.path.wwwAssets,
-      '@components': globalConfig.path.wwwComponents,
-      '@fonts': path.join(globalConfig.path.wwwAssets, 'fonts'),
-      '@img': path.join(globalConfig.path.wwwAssets, 'img'),
-      '@intermediars': globalConfig.path.wwwIntermediars,
-      '@less': path.join(globalConfig.path.wwwAssets, 'less'),
-      '@lib': globalConfig.path.wwwLib
+      'Root': globalConfig.path.root,
+      'Assets': globalConfig.path.wwwAssets,
+      'Components': globalConfig.path.wwwComponents,
+      'Fonts': path.join(globalConfig.path.wwwAssets, 'fonts'),
+      'Img': path.join(globalConfig.path.wwwAssets, 'img'),
+      'Intermediars': globalConfig.path.wwwIntermediars,
+      'Stylesheets': path.join(globalConfig.path.wwwAssets, 'stylesheets'),
+      'Lib': globalConfig.path.wwwLib
     },
     symlinks: false
   },

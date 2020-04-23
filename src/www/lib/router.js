@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@components/Home'
-import Layout from '@components/Layout'
-import Error404 from '@components/Error404'
+import Home from 'Components/Home'
+import Layout from 'Components/Layout'
+import Error404 from 'Components/Error404'
 
 Vue.use(Router);
 

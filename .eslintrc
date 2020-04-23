@@ -1,10 +1,24 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true
   },
+
+  "globals": {
+    "isNumeric": true,
+    "md5": true
+  },
+
   "extends": "eslint:recommended",
+
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "space-before-function-paren": ["error", "always"]
+  },
+
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2017
   }
 }

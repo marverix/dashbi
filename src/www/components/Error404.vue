@@ -6,7 +6,7 @@
 </template>
 
 <style lang="less" scoped>
-@import '~@less/colors.less';
+@import '~Stylesheets/colors.less';
 
 article {
   text-align: center;

@@ -1,7 +1,7 @@
 'use strict';
 
 import Stomp from '@stomp/stompjs';
-import { port } from '@root/global-config'
+import { port } from 'Root/global-config'
 
 const URL = `${location.origin.replace(/\d+$/, port.stompServer ).replace(/^http/, 'ws')}/stomp`;
 
@@ -12,7 +12,7 @@ const client = Stomp.client(URL);
 client.reconnect_delay = 5 * Date.SECOND;
 
 let wasConnected = false;
-const promise = new Promise(function (resolve, reject) {
+const promise = new Promise((resolve, reject) => {
   client.connect('anonymous', 'anonymous', () => {
     if (wasConnected) {
       location.reload();
@@ -29,7 +29,7 @@ const promise = new Promise(function (resolve, reject) {
  * @param {string} sid Source ID
  */
 function subscribeSource (that, sid) {
-  promise.then(function () {
+  promise.then(() => {
     client.subscribe(`/source/${sid}`, handleRecord.bind(that));
   });
 }

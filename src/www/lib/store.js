@@ -66,7 +66,7 @@ export default new Vuex.Store({
      */
     fetchSource (that, sid) {
       axios.get(`${apiUrl}/source/${sid}`)
-      .then(function (res) {
+      .then((res) => {
         let records = res.data;
         for (let record of records) {
           record.sid = sid;

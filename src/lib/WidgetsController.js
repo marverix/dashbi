@@ -66,13 +66,13 @@ class WidgetsController extends AbstractController {
                 + "import Vue from 'vue';\n";
 
       let i = 0;
-      this.registry.forEach(function (widget) {
+      this.registry.forEach((widget) => {
         index += `import w${i} from '${widget.path}';\n`
                + `Vue.component('widget-${widget.name}', w${i});\n`;
         i++;
       });
 
-      fs.writeFile(globalConfig.path.intermediarsWidgetsFile, index, function (err) {
+      fs.writeFile(globalConfig.path.intermediarsWidgetsFile, index, (err) => {
         if (err) {
           reject(err);
         } else {

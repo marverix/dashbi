@@ -65,7 +65,7 @@ class LayoutsController {
    */
   getSources () {
     let sources = new Set();
-    this.list.forEach(function(item, name) {
+    this.list.forEach((item) => {
       let itemSources = item.getSources();
       itemSources.forEach( (source) => sources.add(source) );
     });
@@ -82,11 +82,11 @@ class LayoutsController {
       Log.n('Generating layouts intermediar...');
 
       let layoutsObject = [];
-      this.list.forEach(function (layout) {
+      this.list.forEach((layout) => {
         layoutsObject.push( layout.toJson() );
       });
 
-      fs.writeFile(globalConfig.path.intermediarsLayoutsFile, JSON.stringify(layoutsObject.reverse()), function (err) {
+      fs.writeFile(globalConfig.path.intermediarsLayoutsFile, JSON.stringify(layoutsObject.reverse()), (err) => {
         if (err) {
           reject(err);
         } else {

@@ -4,7 +4,7 @@
   "description": "Dashbi is light framework that lets you build own dashboards corresponding your needs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,8 @@
     "@babel/core": "^7.9.0",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
-    "@stomp/stompjs": "^5.4.4",
+    "@bitbar/finka": "^2.0.2",
+    "@stomp/stompjs": "^4.0.8",
     "ajv": "^6.12.2",
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
@@ -41,7 +42,6 @@
     "css-loader": "^3.5.2",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
-    "finka": "^1.4.0",
     "flexgrid.less": "^0.1.0",
     "font-awesome": "^4.7.0",
     "helmet": "^3.22.0",

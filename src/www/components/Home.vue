@@ -16,7 +16,7 @@
 <script>
 'use strict';
 
-import layouts from '@lib/layouts';
+import layouts from 'Lib/layouts';
 
 export default {
   data () {

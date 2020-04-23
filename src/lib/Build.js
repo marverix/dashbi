@@ -22,16 +22,12 @@ const toCleanStr = `{${toClean.join(',')}}`;
  * @param {Dashbi} context
  * @returns {Promise}
  */
-function build (context) {
-  return clean().then(function() {
-    return prepare().then(function () {
-      return context.widgetsController.generateIntermediar().then(function() {
-        return context.layoutsController.generateIntermediar().then(function() {
-          return buildPackage();
-        });
-      });
-    });
-  });
+async function build (context) {
+  await clean();
+  await prepare();
+  await context.widgetsController.generateIntermediar();
+  await context.layoutsController.generateIntermediar();
+  await buildPackage();
 }
 
 /**
@@ -39,9 +35,9 @@ function build (context) {
  * @returns {Promise}
  */
 function clean () {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve) => {
     Log.n('Cleaning...');
-    rm(toCleanStr, function() {
+    rm(toCleanStr, () => {
       resolve();
     });
   });
@@ -52,9 +48,9 @@ function clean () {
  * @returns {Promise}
  */
 function prepare () {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     Log.n('Preparing...');
-    fs.mkdir(globalConfig.path.wwwIntermediars, function (err) {
+    fs.mkdir(globalConfig.path.wwwIntermediars, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -69,9 +65,9 @@ function prepare () {
  * @returns {Promise}
  */
 function buildPackage () {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     Log.n('Building...');
-    webpack(webpackConfig, function (err, stats) {
+    webpack(webpackConfig, (err, stats) => {
       if (err) {
         throw err;
       }
