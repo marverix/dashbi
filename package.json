@@ -34,7 +34,7 @@
     "@bitbar/finka": "^2.0.2",
     "@stomp/stompjs": "^4.0.8",
     "ajv": "^6.12.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "chalk": "^4.0.0",
     "copy-webpack-plugin": "^5.1.1",
